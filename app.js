@@ -25,6 +25,10 @@ function isValidAuMobile(digits) {
   return /^04\d{8}$/.test(withLeadingZero);
 }
 
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
 const input = document.getElementById("mobile");
 const hint = document.getElementById("mobile-hint");
 const mobileForm = document.getElementById("mobile-form");
@@ -54,6 +58,7 @@ const dropoffModalLocations = document.getElementById("dropoff-modal-locations")
 const modalDialog = dropoffSettingsModal?.querySelector(".modal-dialog");
 const ordersView = document.getElementById("orders-view");
 const ordersTableBody = document.getElementById("orders-table-body");
+const ordersSelectAll = document.getElementById("orders-select-all");
 const ordersDropoffName = document.getElementById("orders-dropoff-name");
 const ordersDropoffSettings = document.getElementById("orders-dropoff-settings");
 const restartOnboardingBtn = document.getElementById("restart-onboarding");
@@ -64,7 +69,6 @@ const otpInputs = [...document.querySelectorAll(".otp__digit")];
 const useDifferentNumber = document.getElementById("use-different-number");
 const resendCode = document.getElementById("resend-code");
 const progressBar = document.getElementById("progress");
-const progressSteps = [...document.querySelectorAll(".progress__step")];
 const defaultHint = hint.textContent;
 const defaultHintColor = getComputedStyle(hint).color;
 
@@ -81,14 +85,14 @@ const DROPOFF_LOCATION_LABELS = {
 };
 
 const ORDERS_ROWS = [
-  { date: "16 Oct 2025", status: "Dropped Off", statusClass: "dropped", tracking: "YTG8580001001", booking: "PGAACLU33", order: "#1000", route: "Drop at PARCE…", place: "Cash Mall, H…", recipient: "Roshant…", price: "$4.50" },
-  { date: "16 Oct 2025", status: "Picked Up", statusClass: "picked", tracking: "YTG8580001002", booking: "PGAACLU34", order: "#1001", route: "Collect from M…", place: "Box Hill, VIC…", recipient: "Sarah M…", price: "$9.20" },
-  { date: "14 Oct 2025", status: "Attempted Pi…", statusClass: "attempted", tracking: "MP8015925154", booking: "PGAACLF73", order: "#1015", route: "Collect from M…", place: "Box Hill, VIC…", recipient: "Roshant…", price: "$10.40" },
-  { date: "14 Oct 2025", status: "Dropped Off", statusClass: "dropped", tracking: "YTG8580001004", booking: "PGAACLU36", order: "#1002", route: "Drop at PARCE…", place: "Clayton, VIC…", recipient: "James L…", price: "$6.80" },
-  { date: "12 Oct 2025", status: "Out for Deliv…", statusClass: "out", tracking: "MP8015925155", booking: "PGAACLF74", order: "#1016", route: "Drop at PARCE…", place: "Haymarket, …", recipient: "Roshant…", price: "$9.90" },
-  { date: "9 Oct 2025", status: "Attempted Pi…", statusClass: "attempted", tracking: "MP8015925156", booking: "PGAACLF75", order: "#1017", route: "Drop at PARCE…", place: "Oakleigh, …", recipient: "Priya K…", price: "$8.10" },
-  { date: "25 Sep 2025", status: "Dropped Off", statusClass: "dropped", tracking: "YTG8580001007", booking: "PGAACLU39", order: "#1005", route: "Drop at PARCE…", place: "Caulfield, …", recipient: "Tom H…", price: "$5.60" },
-  { date: "22 Sep 2025", status: "Picked Up", statusClass: "picked", tracking: "YTG8580001008", booking: "PGAACLU40", order: "#1006", route: "Collect from M…", place: "Richmond, …", recipient: "Anna W…", price: "$11.30" },
+  { date: "16 Oct 2025", status: "Dropped Off", statusClass: "dropped", tracking: "YTG8580001001", booking: "PGAACLU33", order: "#1000", origin: "Drop at PARCE…", destination: "Cash Mall, H…", recipient: "Roshant…", price: "$4.50" },
+  { date: "16 Oct 2025", status: "Picked Up", statusClass: "picked", tracking: "YTG8580001002", booking: "PGAACLU34", order: "#1001", origin: "Collect from M…", destination: "Box Hill, VIC…", recipient: "Sarah M…", price: "$9.20" },
+  { date: "14 Oct 2025", status: "Attempted Pi…", statusClass: "attempted", tracking: "MP8015925154", booking: "PGAACLF73", order: "#1015", origin: "Collect from M…", destination: "Box Hill, VIC…", recipient: "Roshant…", price: "$10.40" },
+  { date: "14 Oct 2025", status: "Dropped Off", statusClass: "dropped", tracking: "YTG8580001004", booking: "PGAACLU36", order: "#1002", origin: "Drop at PARCE…", destination: "Clayton, VIC…", recipient: "James L…", price: "$6.80" },
+  { date: "12 Oct 2025", status: "Out for Deliv…", statusClass: "out", tracking: "MP8015925155", booking: "PGAACLF74", order: "#1016", origin: "Drop at PARCE…", destination: "Haymarket, …", recipient: "Roshant…", price: "$9.90" },
+  { date: "9 Oct 2025", status: "Attempted Pi…", statusClass: "attempted", tracking: "MP8015925156", booking: "PGAACLF75", order: "#1017", origin: "Drop at PARCE…", destination: "Oakleigh, …", recipient: "Priya K…", price: "$8.10" },
+  { date: "25 Sep 2025", status: "Dropped Off", statusClass: "dropped", tracking: "YTG8580001007", booking: "PGAACLU39", order: "#1005", origin: "Drop at PARCE…", destination: "Caulfield, …", recipient: "Tom H…", price: "$5.60" },
+  { date: "22 Sep 2025", status: "Picked Up", statusClass: "picked", tracking: "YTG8580001008", booking: "PGAACLU40", order: "#1006", origin: "Collect from M…", destination: "Richmond, …", recipient: "Anna W…", price: "$11.30" },
 ];
 
 function getSelectedDropoffLocationValue() {
@@ -112,13 +116,16 @@ function renderOrdersTable() {
     const row = ORDERS_ROWS[i % ORDERS_ROWS.length];
     rows.push(`
       <tr>
-        <td class="orders-table__check"><input type="checkbox" aria-label="Select order ${row.order}" /></td>
+        <td class="orders-table__check"><input type="checkbox" class="orders-row-check" aria-label="Select order ${row.order}" /></td>
         <td>${row.date}</td>
         <td><span class="status-badge status-badge--${row.statusClass}">${row.status}</span></td>
-        <td class="orders-table__tracking">${row.tracking}</td>
+        <td class="orders-table__tracking">
+          <a class="orders-table__tracking-link" href="#">${row.tracking}</a>
+        </td>
         <td>${row.booking}</td>
         <td class="orders-table__order">${row.order}</td>
-        <td>${row.route}<br /><span style="color:#6b7280">${row.place}</span></td>
+        <td>${row.origin}</td>
+        <td>${row.destination}</td>
         <td>${row.recipient}</td>
         <td><strong>${row.price}</strong></td>
         <td class="orders-table__label">
@@ -132,7 +139,24 @@ function renderOrdersTable() {
     `);
   }
   ordersTableBody.innerHTML = rows.join("");
+  if (ordersSelectAll) {
+    ordersSelectAll.checked = false;
+    ordersSelectAll.indeterminate = false;
+  }
 }
+
+ordersSelectAll?.addEventListener("change", () => {
+  const selectAll = ordersSelectAll.checked;
+  ordersTableBody?.querySelectorAll(".orders-row-check").forEach((el) => {
+    el.checked = selectAll;
+  });
+});
+
+ordersTableBody?.addEventListener("click", (e) => {
+  if (e.target.closest(".orders-table__tracking-link")) {
+    e.preventDefault();
+  }
+});
 
 function showOrdersView() {
   if (flowCard) flowCard.hidden = true;
@@ -153,22 +177,25 @@ function restartOnboarding() {
 }
 
 function setProgressStep(step) {
-  const current = Math.max(1, Math.min(step, progressSteps.length));
-  progressSteps.forEach((el, index) => {
-    const n = index + 1;
-    el.classList.remove("progress__step--active", "progress__step--complete", "progress__step--current");
-    if (n < current) {
-      el.classList.add("progress__step--complete");
-    } else if (n === current) {
-      el.classList.add("progress__step--current");
-    }
+  document.querySelectorAll(".progress").forEach((bar) => {
+    const steps = [...bar.querySelectorAll(":scope > .progress__step")];
+    const max = steps.length;
+    const current = Math.max(1, Math.min(step, max));
+    steps.forEach((el, index) => {
+      const n = index + 1;
+      el.classList.remove("progress__step--active", "progress__step--complete", "progress__step--current");
+      if (n < current) {
+        el.classList.add("progress__step--complete");
+      } else if (n === current) {
+        el.classList.add("progress__step--current");
+      }
+    });
+    bar.setAttribute("aria-valuenow", String(current));
+    bar.setAttribute("aria-valuemax", String(max));
+    bar.dataset.step = String(current);
+    bar.hidden = false;
+    bar.classList.remove("progress--hidden");
   });
-  if (progressBar) {
-    progressBar.setAttribute("aria-valuenow", String(current));
-    progressBar.dataset.step = String(current);
-    progressBar.hidden = false;
-    progressBar.classList.remove("progress--hidden");
-  }
 }
 
 function showOnlyStep(activeStep) {
@@ -224,6 +251,7 @@ function showDropoffStep() {
   document.body.classList.remove("page-orders");
   document.title = "How do you send parcels?";
   document.body.classList.add("page-dropoff");
+  setProgressStep(5);
   dropoffToggle?.focus();
 }
 
@@ -232,12 +260,6 @@ input.addEventListener("input", () => {
   input.value = formatDisplay(digits);
   hint.textContent = defaultHint;
   hint.style.color = defaultHintColor;
-});
-
-detailsPhoneInput?.addEventListener("input", () => {
-  const digits = normalizeDigits(detailsPhoneInput.value);
-  detailsPhoneInput.value = formatDisplay(digits);
-  detailsPhoneWrap?.classList.remove("phone-input--invalid");
 });
 
 mobileForm.addEventListener("submit", (e) => {
@@ -322,11 +344,33 @@ codeForm.addEventListener("submit", (e) => {
 
 detailsForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const phoneDigits = normalizeDigits(detailsPhoneInput.value);
-  if (phoneDigits) {
-    savedMobileDigits = phoneDigits;
+
+  const first = firstNameInput.value.trim();
+  const last = lastNameInput.value.trim();
+  const email = emailInput.value.trim();
+
+  firstNameInput.classList.toggle("text-input--invalid", !first);
+  lastNameInput.classList.toggle("text-input--invalid", !last);
+  emailInput.classList.toggle("text-input--invalid", !isValidEmail(email));
+
+  if (!first) {
+    firstNameInput.focus();
+    return;
   }
+  if (!last) {
+    lastNameInput.focus();
+    return;
+  }
+  if (!isValidEmail(email)) {
+    emailInput.focus();
+    return;
+  }
+
   showConnectStep();
+});
+
+[firstNameInput, lastNameInput, emailInput].forEach((el) => {
+  el?.addEventListener("input", () => el.classList.remove("text-input--invalid"));
 });
 
 detailsBack.addEventListener("click", () => {
@@ -445,32 +489,9 @@ connectBack.addEventListener("click", () => {
 
 setProgressStep(1);
 
-const topBarMenu = document.getElementById("top-bar-menu");
-const topBarDropdown = document.getElementById("top-bar-dropdown");
-
-function setMenuOpen(open) {
-  if (!topBarMenu || !topBarDropdown) return;
-  topBarMenu.setAttribute("aria-expanded", open ? "true" : "false");
-  topBarDropdown.hidden = !open;
-}
-
-topBarMenu?.addEventListener("click", (e) => {
-  e.stopPropagation();
-  const isOpen = topBarMenu.getAttribute("aria-expanded") === "true";
-  setMenuOpen(!isOpen);
-});
-
-topBarDropdown?.querySelectorAll(".top-bar__dropdown-item").forEach((item) => {
-  item.addEventListener("click", () => setMenuOpen(false));
-});
-
-document.addEventListener("click", () => setMenuOpen(false));
-
 document.addEventListener("keydown", (e) => {
   if (e.key !== "Escape") return;
   if (dropoffSettingsModal && !dropoffSettingsModal.hidden) {
     setDropoffSettingsModalOpen(false);
-    return;
   }
-  setMenuOpen(false);
 });

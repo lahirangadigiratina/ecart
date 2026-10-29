@@ -30,86 +30,13 @@
 
     <div class="page">
 
-      <header class="top-bar">
-
-        <div class="top-bar__brand">
-
-          <img
-
-            class="top-bar__logo"
-
-            src="assets/parcelpoint-icon.png?v=4"
-
-            width="36"
-
-            height="36"
-
-            alt=""
-
-            aria-hidden="true"
-
-          />
-
-          <span class="top-bar__title">PARCELPOINT Go Cart</span>
-
-        </div>
-
-        <div class="top-bar__menu-wrap">
-          <button
-            type="button"
-            class="top-bar__menu"
-            id="top-bar-menu"
-            aria-label="More options"
-            aria-expanded="false"
-            aria-haspopup="menu"
-          >
-            <span></span><span></span><span></span>
-          </button>
-          <div class="top-bar__dropdown" id="top-bar-dropdown" role="menu" hidden>
-            <button type="button" class="top-bar__dropdown-item" role="menuitem">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <rect x="3" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5" />
-                <rect x="11" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5" />
-                <rect x="3" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5" />
-                <path d="M14 11h3M15.5 9.5v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-              </svg>
-              Manage app
-            </button>
-            <button type="button" class="top-bar__dropdown-item" role="menuitem">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <path
-                  d="M10 2l1.2 4.2L15 7.5l-3.8 1.3L10 13l-1.2-4.2L5 7.5l3.8-1.3L10 2zM6 14l-2 4 2-1 2 1-2-4zM14 14l-2 4 2-1 2 1-2-4z"
-                  stroke="currentColor"
-                  stroke-width="1.3"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              Pin to your navigation
-            </button>
-            <button type="button" class="top-bar__dropdown-item top-bar__dropdown-item--danger" role="menuitem">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <path
-                  d="M7 4h6M5 6h10l-1 11H6L5 6zM8 9v5M12 9v5"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              Uninstall
-            </button>
-          </div>
-        </div>
-
-      </header>
-
-      <div class="top-bar-line" aria-hidden="true"></div>
-
       <main class="page-main">
 
         <article class="flow-card">
 
-          <div id="progress" class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4">
+          <div id="progress" class="progress" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5">
+
+            <span class="progress__step"></span>
 
             <span class="progress__step"></span>
 
@@ -293,7 +220,9 @@
 
               <div class="form-field">
 
-                <label class="field-label" for="first-name">First name</label>
+                <label class="field-label" for="first-name">
+                  First name <span class="field-label__required" aria-hidden="true">*</span>
+                </label>
 
                 <input
                   id="first-name"
@@ -302,6 +231,7 @@
                   class="text-input"
                   placeholder="Nuzha"
                   autocomplete="given-name"
+                  required
                 />
 
               </div>
@@ -310,7 +240,9 @@
 
               <div class="form-field">
 
-                <label class="field-label" for="last-name">Last name</label>
+                <label class="field-label" for="last-name">
+                  Last name <span class="field-label__required" aria-hidden="true">*</span>
+                </label>
 
                 <input
                   id="last-name"
@@ -319,6 +251,7 @@
                   class="text-input"
                   placeholder="Kit"
                   autocomplete="family-name"
+                  required
                 />
 
               </div>
@@ -327,7 +260,9 @@
 
               <div class="form-field">
 
-                <label class="field-label" for="email">Email address</label>
+                <label class="field-label" for="email">
+                  Email address <span class="field-label__required" aria-hidden="true">*</span>
+                </label>
 
                 <input
                   id="email"
@@ -336,6 +271,7 @@
                   class="text-input"
                   placeholder="nuzha.kitchilan@digiratina.com"
                   autocomplete="email"
+                  required
                 />
 
               </div>
@@ -346,7 +282,7 @@
 
                 <label class="field-label" for="details-phone">Phone number</label>
 
-                <div class="phone-input" id="details-phone-wrap">
+                <div class="phone-input phone-input--readonly" id="details-phone-wrap">
 
                   <div class="phone-input__prefix">
 
@@ -392,6 +328,8 @@
                     placeholder="430 251 435"
                     inputmode="numeric"
                     autocomplete="tel-national"
+                    readonly
+                    aria-readonly="true"
                   />
 
                 </div>
@@ -420,7 +358,7 @@
 
             <p class="subheading">
 
-              Authorise PARCELPOINT Go to read your Shopify orders.
+              Let PARCELPOINT Go handle shipping for your store.
 
             </p>
 
@@ -444,11 +382,13 @@
 
             <ul class="permissions">
 
-              <li>Read orders and customer shipping addresses</li>
+              <li>Show PARCELPOINT Go shipping rates at checkout</li>
 
-              <li>Write tracking numbers back to fulfilments</li>
+              <li>Import new orders and their delivery addresses</li>
 
-              <li>Nothing is shared with other merchants</li>
+              <li>Add tracking details to your fulfilments</li>
+
+              <li>Keep your store data private to your account</li>
 
             </ul>
 
@@ -473,6 +413,31 @@
 
 
         <article class="dropoff-panel" id="step-dropoff" hidden>
+
+          <div class="progress progress--dropoff" role="progressbar" aria-valuenow="5" aria-valuemin="1" aria-valuemax="5">
+
+            <span class="progress__step"></span>
+
+            <span class="progress__step"></span>
+
+            <span class="progress__step"></span>
+
+            <span class="progress__step"></span>
+
+            <span class="progress__step"></span>
+
+          </div>
+
+          <div class="hero-logo">
+
+            <img
+              class="hero-logo__svg"
+              src="assets/parcelpoint-hero-logo.svg?v=5"
+              height="56"
+              alt="PARCELPOINT GO"
+            />
+
+          </div>
 
           <h1 class="dropoff-heading">How do you send parcels?</h1>
 
@@ -633,11 +598,16 @@
 
           <div class="orders-sticky">
 
-          <div class="orders-top">
+            <div class="orders-toolbar">
 
-            <h1 class="orders-title">Orders</h1>
+              <img
+                class="orders-toolbar__logo"
+                src="assets/parcelpoint-hero-logo.svg?v=5"
+                height="40"
+                alt="PARCELPOINT GO"
+              />
 
-            <header class="orders-header">
+              <div class="orders-toolbar__actions">
 
               <span class="orders-dropoff-pill" id="orders-dropoff-pill">
 
@@ -667,9 +637,13 @@
 
               </button>
 
-            </header>
+              </div>
 
-          </div>
+            </div>
+
+
+
+            <h1 class="orders-title">Orders</h1>
 
 
 
@@ -720,13 +694,17 @@
 
           <div class="orders-table-wrap">
 
+            <div class="orders-table-scroll">
+
             <table class="orders-table">
 
               <thead>
 
                 <tr>
 
-                  <th scope="col" class="orders-table__check"><span class="visually-hidden">Select</span></th>
+                  <th scope="col" class="orders-table__check">
+                    <input type="checkbox" id="orders-select-all" aria-label="Select all orders" />
+                  </th>
 
                   <th scope="col">Date</th>
 
@@ -738,7 +716,9 @@
 
                   <th scope="col">Order #</th>
 
-                  <th scope="col">Origin &amp; Destination</th>
+                  <th scope="col">Origin</th>
+
+                  <th scope="col">Destination</th>
 
                   <th scope="col">Recipient</th>
 
@@ -753,6 +733,72 @@
               <tbody id="orders-table-body"></tbody>
 
             </table>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="orders-pagination">
+
+            <div class="orders-pagination__start">
+
+              <p class="orders-pagination__range" id="orders-pagination-range">Showing 1–20 of 20</p>
+
+              <label class="orders-pagination__rows">
+
+                Rows
+
+                <select class="orders-pagination__rows-select" id="orders-rows-per-page" aria-label="Rows per page">
+
+                  <option value="20" selected>20</option>
+
+                  <option value="50">50</option>
+
+                  <option value="100">100</option>
+
+                </select>
+
+              </label>
+
+            </div>
+
+
+
+            <nav class="orders-pagination__nav" aria-label="Orders pages">
+
+              <button type="button" class="orders-page-btn orders-page-btn--icon" disabled aria-label="First page">«</button>
+
+              <button type="button" class="orders-page-btn" disabled aria-label="Previous page">
+
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+
+                  <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+
+                </svg>
+
+                Previous
+
+              </button>
+
+              <span class="orders-pagination__current" aria-current="page">1</span>
+
+              <button type="button" class="orders-page-btn" disabled aria-label="Next page">
+
+                Next
+
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+
+                  <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+
+                </svg>
+
+              </button>
+
+              <button type="button" class="orders-page-btn orders-page-btn--icon" disabled aria-label="Last page">»</button>
+
+            </nav>
 
           </div>
 
