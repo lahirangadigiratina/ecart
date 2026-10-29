@@ -1390,16 +1390,8 @@ body.page-orders .page-main {
 .orders-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: flex-end;
   margin-top: 16px;
-  flex-wrap: wrap;
-}
-
-.orders-footer__count {
-  margin: 0;
-  font-size: 14px;
-  color: var(--text-muted);
 }
 
 .orders-restart {
