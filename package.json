@@ -1,0 +1,8 @@
+{
+  "name": "parcelpoint-go-cart",
+  "private": true,
+  "scripts": {
+    "dev": "npx --yes serve .",
+    "preview": "npx --yes serve ."
+  }
+}

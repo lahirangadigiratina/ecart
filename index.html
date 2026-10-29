@@ -302,7 +302,6 @@
                   class="text-input"
                   placeholder="Nuzha"
                   autocomplete="given-name"
-                  required
                 />
 
               </div>
@@ -320,7 +319,6 @@
                   class="text-input"
                   placeholder="Kit"
                   autocomplete="family-name"
-                  required
                 />
 
               </div>
@@ -338,7 +336,6 @@
                   class="text-input"
                   placeholder="nuzha.kitchilan@digiratina.com"
                   autocomplete="email"
-                  required
                 />
 
               </div>
@@ -395,7 +392,6 @@
                     placeholder="430 251 435"
                     inputmode="numeric"
                     autocomplete="tel-national"
-                    required
                   />
 
                 </div>
@@ -474,9 +470,489 @@
 
         </article>
 
+
+
+        <article class="dropoff-panel" id="step-dropoff" hidden>
+
+          <h1 class="dropoff-heading">How do you send parcels?</h1>
+
+          <p class="dropoff-subheading">
+            Choose where outbound parcels are picked up from. You can change this later in settings.
+          </p>
+
+
+
+          <div class="dropoff-section">
+
+            <h2 class="dropoff-section__label">Warehouse address</h2>
+
+            <div class="dropoff-warehouse">
+
+              <div class="dropoff-warehouse__text">
+
+                <p class="dropoff-warehouse__name">Testar Grove</p>
+
+                <p class="dropoff-warehouse__meta">From your Shopify default location</p>
+
+              </div>
+
+              <button type="button" class="dropoff-link" id="warehouse-change">Change</button>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="dropoff-feature">
+
+            <div class="dropoff-feature__copy">
+
+              <p class="dropoff-feature__title">
+                Drop off at a PARCELPOINT
+                <span class="dropoff-tag">Recommended</span>
+              </p>
+
+              <p class="dropoff-feature__desc">
+                Take outbound parcels to a nearby PARCELPOINT instead of waiting for a courier to collect from your warehouse.
+              </p>
+
+            </div>
+
+            <label class="toggle">
+
+              <input type="checkbox" class="toggle__input" id="dropoff-toggle" checked />
+
+              <span class="toggle__track" aria-hidden="true"></span>
+
+            </label>
+
+          </div>
+
+
+
+          <div class="dropoff-section" id="dropoff-locations">
+
+            <h2 class="dropoff-section__label">
+              Default drop-off PARCELPOINT <span class="dropoff-section__suffix">· within 5 km of warehouse</span>
+            </h2>
+
+
+
+            <div class="dropoff-locations" role="radiogroup" aria-label="Default drop-off PARCELPOINT">
+
+              <label class="dropoff-location">
+
+                <input type="radio" name="dropoff-location" value="bp-clayton" class="dropoff-location__input" checked />
+
+                <span class="dropoff-location__card">
+
+                  <span class="dropoff-location__row">
+
+                    <span class="dropoff-location__name">BP Clayton</span>
+
+                    <span class="dropoff-location__hours">Open 24/7</span>
+
+                    <span class="dropoff-location__distance">0.8 km</span>
+
+                  </span>
+
+                  <span class="dropoff-location__address">244 Clayton Rd, Clayton VIC 3168</span>
+
+                  <span class="dropoff-location__radio" aria-hidden="true"></span>
+
+                </span>
+
+              </label>
+
+
+
+              <label class="dropoff-location">
+
+                <input type="radio" name="dropoff-location" value="7eleven-clayton" class="dropoff-location__input" />
+
+                <span class="dropoff-location__card">
+
+                  <span class="dropoff-location__row">
+
+                    <span class="dropoff-location__name">7-Eleven Clayton Station</span>
+
+                    <span class="dropoff-location__hours">6am to 11pm</span>
+
+                    <span class="dropoff-location__distance">1.4 km</span>
+
+                  </span>
+
+                  <span class="dropoff-location__address">18–20 Centre Rd, Clayton VIC 3168</span>
+
+                  <span class="dropoff-location__radio" aria-hidden="true"></span>
+
+                </span>
+
+              </label>
+
+
+
+              <label class="dropoff-location">
+
+                <input type="radio" name="dropoff-location" value="oakleigh-news" class="dropoff-location__input" />
+
+                <span class="dropoff-location__card">
+
+                  <span class="dropoff-location__row">
+
+                    <span class="dropoff-location__name">Oakleigh Central News</span>
+
+                    <span class="dropoff-location__hours">7am to 6pm</span>
+
+                    <span class="dropoff-location__distance">2.6 km</span>
+
+                  </span>
+
+                  <span class="dropoff-location__address">42 Portman St, Oakleigh VIC 3166</span>
+
+                  <span class="dropoff-location__radio" aria-hidden="true"></span>
+
+                </span>
+
+              </label>
+
+            </div>
+
+          </div>
+
+
+
+          <button type="button" class="btn-primary dropoff-save" id="dropoff-save">Save and open orders</button>
+
+        </article>
+
+
+
+        <section class="orders-view" id="orders-view" hidden>
+
+          <div class="orders-sticky">
+
+          <div class="orders-top">
+
+            <h1 class="orders-title">Orders</h1>
+
+            <header class="orders-header">
+
+              <span class="orders-dropoff-pill" id="orders-dropoff-pill">
+
+                <svg class="orders-dropoff-pill__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+
+                  <path d="M8 1.5a4.5 4.5 0 0 0-4.5 4.5c0 3.375 4.5 8.5 4.5 8.5s4.5-5.125 4.5-8.5A4.5 4.5 0 0 0 8 1.5z" stroke="currentColor" stroke-width="1.3" />
+
+                  <circle cx="8" cy="6" r="1.5" fill="currentColor" />
+
+                </svg>
+
+                Drop off: <span id="orders-dropoff-name">BP Clayton</span>
+
+              </span>
+
+              <button type="button" class="orders-settings-btn" id="orders-dropoff-settings">
+
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+
+                  <path d="M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" stroke="currentColor" stroke-width="1.4" />
+
+                  <path d="M16.1 12.4l1 1.7a1 1 0 0 1-.2 1.2l-1.5 1.5a1 1 0 0 1-1.2.2l-1.7-1a4.2 4.2 0 0 1-1 .6l-.3 1.9a1 1 0 0 1-1 .85H9.8a1 1 0 0 1-1-.85l-.3-1.9a4.2 4.2 0 0 1-1-.6l-1.7 1a1 1 0 0 1-1.2-.2l-1.5-1.5a1 1 0 0 1-.2-1.2l1-1.7a4.2 4.2 0 0 1-.6-1l-1.9-.3a1 1 0 0 1-.85-1V9.8a1 1 0 0 1 .85-1l1.9-.3a4.2 4.2 0 0 1 .6-1l-1-1.7a1 1 0 0 1 .2-1.2l1.5-1.5a1 1 0 0 1 1.2-.2l1.7 1a4.2 4.2 0 0 1 1-.6l.3-1.9a1 1 0 0 1 1-.85h2.4a1 1 0 0 1 1 .85l.3 1.9a4.2 4.2 0 0 1 1 .6l1.7-1a1 1 0 0 1 1.2.2l1.5 1.5a1 1 0 0 1 .2 1.2l-1 1.7c.25.32.45.66.6 1l1.9.3a1 1 0 0 1 .85 1v2.4a1 1 0 0 1-.85 1l-1.9.3a4.2 4.2 0 0 1-.6 1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" />
+
+                </svg>
+
+                Drop-off settings
+
+              </button>
+
+            </header>
+
+          </div>
+
+
+
+          <div class="orders-search-wrap">
+
+            <input
+              type="search"
+              class="orders-search"
+              placeholder="Search by order #, booking ID, tracking ID or name"
+              aria-label="Search orders"
+            />
+
+          </div>
+
+
+
+          <div class="orders-controls">
+
+            <div class="orders-filters" role="tablist" aria-label="Order status">
+
+              <button type="button" class="orders-filter orders-filter--active" data-filter="all">All (20)</button>
+
+              <button type="button" class="orders-filter" data-filter="active">Active (20)</button>
+
+              <button type="button" class="orders-filter" data-filter="delivered">Delivered (0)</button>
+
+            </div>
+
+            <button type="button" class="orders-export-btn">
+
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+
+                <path d="M10 3v10M6 9l4 4 4-4M4 14v2h12v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+
+              </svg>
+
+              Export
+
+            </button>
+
+          </div>
+
+          </div>
+
+
+
+          <div class="orders-scroll">
+
+          <div class="orders-table-wrap">
+
+            <table class="orders-table">
+
+              <thead>
+
+                <tr>
+
+                  <th scope="col" class="orders-table__check"><span class="visually-hidden">Select</span></th>
+
+                  <th scope="col">Date</th>
+
+                  <th scope="col">Status</th>
+
+                  <th scope="col">Tracking</th>
+
+                  <th scope="col">Booking</th>
+
+                  <th scope="col">Order #</th>
+
+                  <th scope="col">Origin &amp; Destination</th>
+
+                  <th scope="col">Recipient</th>
+
+                  <th scope="col">Price</th>
+
+                  <th scope="col" class="orders-table__label"><span class="visually-hidden">Label</span></th>
+
+                </tr>
+
+              </thead>
+
+              <tbody id="orders-table-body"></tbody>
+
+            </table>
+
+          </div>
+
+
+
+          <footer class="orders-footer">
+
+            <p class="orders-footer__count">Showing 20 of 20 orders</p>
+
+            <button type="button" class="orders-restart" id="restart-onboarding">Restart onboarding</button>
+
+          </footer>
+
+          </div>
+
+        </section>
+
       </main>
 
     </div>
+
+
+
+    <div class="modal-overlay" id="dropoff-settings-modal" hidden>
+
+      <div
+        class="modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="dropoff-settings-title"
+        tabindex="-1"
+      >
+
+        <header class="modal-header">
+
+          <div class="modal-header__text">
+
+            <h2 class="modal-title" id="dropoff-settings-title">Drop-off settings</h2>
+
+            <p class="modal-subtitle">Applies to new outbound orders</p>
+
+          </div>
+
+          <button type="button" class="modal-close" id="dropoff-settings-close" aria-label="Close">
+
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+
+              <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+
+            </svg>
+
+          </button>
+
+        </header>
+
+
+
+        <div class="modal-body">
+
+          <div class="dropoff-section">
+
+            <h2 class="dropoff-section__label">Warehouse address</h2>
+
+            <p class="modal-address" id="modal-warehouse-address">
+              Testar Grove, Caulfield North VIC 3161, Australia
+            </p>
+
+          </div>
+
+
+
+          <div class="dropoff-feature dropoff-feature--modal">
+
+            <div class="dropoff-feature__copy">
+
+              <p class="dropoff-feature__title">Drop off at a PARCELPOINT</p>
+
+              <p class="dropoff-feature__desc dropoff-feature__desc--modal">
+                Off means a courier collects from your warehouse.
+              </p>
+
+            </div>
+
+            <label class="toggle">
+
+              <input type="checkbox" class="toggle__input" id="dropoff-modal-toggle" checked />
+
+              <span class="toggle__track" aria-hidden="true"></span>
+
+            </label>
+
+          </div>
+
+
+
+          <div class="dropoff-section" id="dropoff-modal-locations">
+
+            <h2 class="dropoff-section__label">Default drop-off PARCELPOINT</h2>
+
+
+
+            <div class="dropoff-locations" role="radiogroup" aria-label="Default drop-off PARCELPOINT">
+
+              <label class="dropoff-location">
+
+                <input type="radio" name="dropoff-location-modal" value="bp-clayton" class="dropoff-location__input" checked />
+
+                <span class="dropoff-location__card">
+
+                  <span class="dropoff-location__row">
+
+                    <span class="dropoff-location__name">BP Clayton</span>
+
+                    <span class="dropoff-location__hours">Open 24/7</span>
+
+                    <span class="dropoff-location__distance">0.8 km</span>
+
+                  </span>
+
+                  <span class="dropoff-location__address">244 Clayton Rd, Clayton VIC 3168</span>
+
+                  <span class="dropoff-location__radio" aria-hidden="true"></span>
+
+                </span>
+
+              </label>
+
+
+
+              <label class="dropoff-location">
+
+                <input type="radio" name="dropoff-location-modal" value="7eleven-clayton" class="dropoff-location__input" />
+
+                <span class="dropoff-location__card">
+
+                  <span class="dropoff-location__row">
+
+                    <span class="dropoff-location__name">7-Eleven Clayton Station</span>
+
+                    <span class="dropoff-location__hours">6am to 11pm</span>
+
+                    <span class="dropoff-location__distance">1.4 km</span>
+
+                  </span>
+
+                  <span class="dropoff-location__address">18–20 Centre Rd, Clayton VIC 3168</span>
+
+                  <span class="dropoff-location__radio" aria-hidden="true"></span>
+
+                </span>
+
+              </label>
+
+
+
+              <label class="dropoff-location">
+
+                <input type="radio" name="dropoff-location-modal" value="oakleigh-news" class="dropoff-location__input" />
+
+                <span class="dropoff-location__card">
+
+                  <span class="dropoff-location__row">
+
+                    <span class="dropoff-location__name">Oakleigh Central News</span>
+
+                    <span class="dropoff-location__hours">7am to 6pm</span>
+
+                    <span class="dropoff-location__distance">2.6 km</span>
+
+                  </span>
+
+                  <span class="dropoff-location__address">42 Portman St, Oakleigh VIC 3166</span>
+
+                  <span class="dropoff-location__radio" aria-hidden="true"></span>
+
+                </span>
+
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <footer class="modal-footer">
+
+          <button type="button" class="btn-secondary" id="dropoff-settings-cancel">Cancel</button>
+
+          <button type="button" class="btn-primary" id="dropoff-settings-save">Save</button>
+
+        </footer>
+
+      </div>
+
+    </div>
+
+
 
     <script src="app.js"></script>
 
