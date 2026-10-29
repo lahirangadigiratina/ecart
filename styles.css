@@ -890,11 +890,6 @@ body.page-dropoff .page-main {
   box-shadow: 0 0 0 3px rgba(240, 90, 40, 0.15);
 }
 
-#dropoff-locations.is-disabled {
-  opacity: 0.45;
-  pointer-events: none;
-}
-
 .dropoff-save {
   display: block;
   width: 100%;
@@ -998,11 +993,6 @@ body.page-dropoff .page-main {
 
 .dropoff-feature__desc--modal {
   max-width: none;
-}
-
-#dropoff-modal-locations.is-disabled {
-  opacity: 0.45;
-  pointer-events: none;
 }
 
 .modal-footer {

@@ -384,7 +384,9 @@ connectForm.addEventListener("submit", (e) => {
 });
 
 function setDropoffLocationsEnabled(enabled) {
-  dropoffLocations?.classList.toggle("is-disabled", !enabled);
+  if (dropoffLocations) {
+    dropoffLocations.hidden = !enabled;
+  }
 }
 
 dropoffToggle?.addEventListener("change", () => {
@@ -398,7 +400,9 @@ dropoffSave?.addEventListener("click", () => {
 });
 
 function setDropoffModalLocationsEnabled(enabled) {
-  dropoffModalLocations?.classList.toggle("is-disabled", !enabled);
+  if (dropoffModalLocations) {
+    dropoffModalLocations.hidden = !enabled;
+  }
 }
 
 function syncMainDropoffToModal() {
