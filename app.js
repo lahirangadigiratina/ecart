@@ -115,23 +115,33 @@ function renderOrdersTable() {
   for (let i = 0; i < 20; i += 1) {
     const row = ORDERS_ROWS[i % ORDERS_ROWS.length];
     rows.push(`
-      <tr>
-        <td class="orders-table__check"><input type="checkbox" class="orders-row-check" aria-label="Select order ${row.order}" /></td>
-        <td>${row.date}</td>
-        <td><span class="status-badge status-badge--${row.statusClass}">${row.status}</span></td>
-        <td class="orders-table__tracking">
-          <a class="orders-table__tracking-link" href="#">${row.tracking}</a>
+      <tr class="orders-table__row">
+        <td class="orders-table__check">
+          <div class="orders-table__select-content">
+            <input type="checkbox" class="orders-table-checkbox orders-row-check" aria-label="Select order ${row.order}" />
+          </div>
         </td>
-        <td>${row.booking}</td>
-        <td class="orders-table__order">${row.order}</td>
-        <td>${row.origin}</td>
-        <td>${row.destination}</td>
-        <td>${row.recipient}</td>
-        <td><strong>${row.price}</strong></td>
-        <td class="orders-table__label">
-          <button type="button" class="orders-label-btn" aria-label="Download label for ${row.order}">
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M10 3v10M6 9l4 4 4-4M4 14v2h12v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <td class="orders-table__cell orders-table__date">${row.date}</td>
+        <td class="orders-table__cell"><span class="status-chip status-chip--${row.statusClass}">${row.status}</span></td>
+        <td class="orders-table__cell orders-table__tracking">
+          <span class="orders-table__truncate orders-table__truncate--mono" title="${row.tracking}">${row.tracking}</span>
+        </td>
+        <td class="orders-table__cell orders-table__mono">
+          <span class="orders-table__truncate orders-table__truncate--mono" title="${row.booking}">${row.booking}</span>
+        </td>
+        <td class="orders-table__cell orders-table__mono">
+          <span class="orders-table__truncate orders-table__truncate--mono" title="${row.order}">${row.order}</span>
+        </td>
+        <td class="orders-table__cell orders-table__text">${row.origin}</td>
+        <td class="orders-table__cell orders-table__text">${row.destination}</td>
+        <td class="orders-table__cell orders-table__text">${row.recipient}</td>
+        <td class="orders-table__cell orders-table__price">${row.price}</td>
+        <td class="orders-table__cell orders-table__label">
+          <button type="button" class="orders-label-btn label-download-btn icon-btn" aria-label="Download label for ${row.order}">
+            <svg class="label-download-btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="m7 10 5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M21 15v4H3v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </button>
         </td>
@@ -145,6 +155,12 @@ function renderOrdersTable() {
   }
 }
 
+ordersTableBody?.addEventListener("click", (e) => {
+  if (e.target.closest(".orders-table__label") || e.target.closest(".orders-table__check")) {
+    e.stopPropagation();
+  }
+});
+
 ordersSelectAll?.addEventListener("change", () => {
   const selectAll = ordersSelectAll.checked;
   ordersTableBody?.querySelectorAll(".orders-row-check").forEach((el) => {
@@ -152,11 +168,6 @@ ordersSelectAll?.addEventListener("change", () => {
   });
 });
 
-ordersTableBody?.addEventListener("click", (e) => {
-  if (e.target.closest(".orders-table__tracking-link")) {
-    e.preventDefault();
-  }
-});
 
 function showOrdersView() {
   if (flowCard) flowCard.hidden = true;

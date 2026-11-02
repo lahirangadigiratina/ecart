@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 12" aria-hidden="true">
+  <rect width="24" height="12" fill="#012169"/>
+  <rect width="12" height="6" fill="#012169"/>
+  <path stroke="#fff" stroke-width="1.2" d="M0 0l12 6M12 0L0 6"/>
+  <path stroke="#C8102E" stroke-width="0.55" d="M0 0l12 6M12 0L0 6"/>
+  <path stroke="#fff" stroke-width="1.8" d="M6 0v6M0 3h12"/>
+  <path stroke="#C8102E" stroke-width="0.9" d="M6 0v6M0 3h12"/>
+  <polygon fill="#fff" points="3.6,8.4 3.95,9.15 4.75,9.15 4.1,9.62 4.35,10.38 3.6,9.92 2.85,10.38 3.1,9.62 2.45,9.15 3.25,9.15"/>
+  <polygon fill="#fff" points="17.2,2.6 17.45,3.15 18.05,3.15 17.58,3.48 17.78,4.02 17.2,3.68 16.62,4.02 16.82,3.48 16.35,3.15 16.95,3.15"/>
+  <polygon fill="#fff" points="19.6,4.8 19.78,5.22 20.24,5.22 19.86,5.5 20,5.94 19.6,5.68 19.2,5.94 19.34,5.5 18.96,5.22 19.42,5.22"/>
+  <polygon fill="#fff" points="18.2,7.2 18.4,7.68 18.92,7.68 18.48,7.98 18.65,8.48 18.2,8.15 17.75,8.48 17.92,7.98 17.48,7.68 18,7.68"/>
+  <circle cx="20.4" cy="9" r="0.45" fill="#fff"/>
+  <circle cx="15.2" cy="5.4" r="0.38" fill="#fff"/>
+</svg>
