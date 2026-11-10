@@ -3,8 +3,9 @@ const fs = require("fs");
 const path = require("path");
 
 const root = __dirname;
-const port = Number(process.env.PORT) || 3000;
 const host = process.env.HOST || "127.0.0.1";
+const preferredPort = Number(process.env.PORT) || 3000;
+const maxPort = preferredPort + 10;
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -67,7 +68,32 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(port, host, () => {
+let tryPort = preferredPort;
+
+server.on("listening", () => {
+  const bound = server.address();
+  const port = typeof bound === "object" && bound ? bound.port : tryPort;
   console.log(`Serving ${root}`);
   console.log(`Open http://${host}:${port}/`);
+  if (port !== preferredPort) {
+    console.log(`(Port ${preferredPort} was busy; using ${port} instead.)`);
+  }
 });
+
+server.on("error", (err) => {
+  if (err.code === "EADDRINUSE" && tryPort < maxPort) {
+    tryPort += 1;
+    server.listen(tryPort, host);
+    return;
+  }
+  if (err.code === "EADDRINUSE") {
+    console.error(
+      `Ports ${preferredPort}–${maxPort} are in use. Stop the other process or run: $env:PORT=3011; npm run dev`,
+    );
+  } else {
+    console.error(err);
+  }
+  process.exit(1);
+});
+
+server.listen(tryPort, host);

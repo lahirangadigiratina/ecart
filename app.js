@@ -55,6 +55,11 @@ const dropoffSettingsSave = document.getElementById("dropoff-settings-save");
 const dropoffSettingsCancel = document.getElementById("dropoff-settings-cancel");
 const dropoffModalToggle = document.getElementById("dropoff-modal-toggle");
 const dropoffModalLocations = document.getElementById("dropoff-modal-locations");
+const dropoffModalFeatureDesc = document.getElementById("dropoff-modal-feature-desc");
+
+const DROPOFF_MODAL_DESC_ON =
+  "Take your parcels to a nearby PARCELPOINT instead of waiting for a courier to collect from your pickup address.";
+const DROPOFF_MODAL_DESC_OFF = "Off means a courier collects from your pickup address.";
 const modalDialog = dropoffSettingsModal?.querySelector(".modal-dialog");
 const ordersView = document.getElementById("orders-view");
 const ordersTableBody = document.getElementById("orders-table-body");
@@ -416,6 +421,11 @@ function setDropoffModalLocationsEnabled(enabled) {
   }
 }
 
+function setDropoffModalFeatureDesc(enabled) {
+  if (!dropoffModalFeatureDesc) return;
+  dropoffModalFeatureDesc.textContent = enabled ? DROPOFF_MODAL_DESC_ON : DROPOFF_MODAL_DESC_OFF;
+}
+
 function syncMainDropoffToModal() {
   if (dropoffModalToggle && dropoffToggle) {
     dropoffModalToggle.checked = dropoffToggle.checked;
@@ -428,6 +438,7 @@ function syncMainDropoffToModal() {
     if (modalRadio) modalRadio.checked = true;
   }
   setDropoffModalLocationsEnabled(dropoffModalToggle?.checked ?? true);
+  setDropoffModalFeatureDesc(dropoffModalToggle?.checked ?? true);
 }
 
 function syncModalDropoffToMain() {
@@ -474,7 +485,10 @@ dropoffSettingsModal?.addEventListener("click", (e) => {
 
 dropoffModalToggle?.addEventListener("change", () => {
   setDropoffModalLocationsEnabled(dropoffModalToggle.checked);
+  setDropoffModalFeatureDesc(dropoffModalToggle.checked);
 });
+
+setDropoffModalFeatureDesc(dropoffModalToggle?.checked ?? true);
 
 dropoffSettingsSave?.addEventListener("click", () => {
   syncModalDropoffToMain();
